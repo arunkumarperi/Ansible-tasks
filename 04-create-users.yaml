@@ -1,0 +1,13 @@
+- name: to create user
+  hosts: web
+  become: yes
+  tasks:
+  - name: Create a user 'ravi' with a home directory
+    ansible.builtin.user:
+      name: "{{item}}"
+      state: present
+      createhome: yes
+    loop:
+    - arun
+    - gopi
+    

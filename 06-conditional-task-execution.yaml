@@ -1,0 +1,26 @@
+
+- name: Execute tasks based on OS type
+  hosts: all
+  gather_facts: yes
+  tasks:
+    - name: Task for Debian-based systems
+      when: ansible_os_family == "Debian"
+      apt:
+        name: nginx
+        state: present
+
+    - name: Task for Red Hat-based systems
+      when: ansible_os_family == "RedHat"
+      yum:
+        name: httpd
+        state: present
+
+    - name: Task for Windows
+      when: ansible_os_family == "Windows"
+      win_feature:
+        name: Web-Server
+        state: present
+
+    - name: Print OS details
+      debug:
+        msg: "Running on {{ ansible_distribution }} {{ ansible_distribution_version }}"
